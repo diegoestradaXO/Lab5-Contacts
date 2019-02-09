@@ -7,17 +7,31 @@ import android.os.Bundle
 import android.util.Log
 import com.example.diego.appcontactos.MainActivity
 import com.example.diego.appcontactos.R
+import com.example.diego.appcontactos.UpdateContactActivity
 import kotlinx.android.synthetic.main.activity_contact_information.*
 
-
+/*
+Activity que muestra la informacion del contacto seleccionado en el MainActivity
+ */
 class ContactInformation : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact_information)
+
         //Boton para regresar al Inicio
         back.setOnClickListener{
             val intent  = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+        //Boton para editar el contacto seleccionado
+        edit.setOnClickListener{
+            val intent: Intent = Intent(this,UpdateContactActivity::class.java)
+            //Se envian los datos actuales
+            intent.putExtra("currentName",name.text)
+            intent.putExtra("currentTel",number.text)
+            intent.putExtra("currentMail",email.text)
+            intent.putExtra("item",intent.getIntExtra("itemToGet",0))
             startActivity(intent)
         }
         //Obtiene la info del contacto seleccionado en la listView de la Main Activity
@@ -37,6 +51,7 @@ class ContactInformation : AppCompatActivity() {
         //Si apacha en el email, se abrira el menu para componer un mensaje
         email.setOnClickListener{
             val intent  = Intent(this, MailActivity::class.java)
+            intent.putExtra("recipientMail",email.text)
             startActivity(intent)
         }
 

@@ -22,16 +22,17 @@ import com.example.diego.appcontactos.Models.MyApplication.Companion.contacts
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
+    /*
+    MainActivity, contiene lista de contactos y boton de agregar contactos
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //Se establece el URL para la db y se inicia
         val URL = "content://com.example.diego.appcontactos.ContactProvider"
         val contact= Uri.parse(URL)
         val c = contentResolver.query(contact, null, null, null, "name")
-        //logica para poner toda la informacion necesaria en la list view y ademas agregar la necesaria a my application
-
 
 
         //Se crea el adapter y se asocia  a la lista de contactos creada
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             val intent  = Intent(this, AddContactActivity::class.java)
             startActivity(intent)
         }
-
+        //Al hacer clikc largo en cualquier contacto se elimina
         contactList.onItemLongClickListener= object: AdapterView.OnItemLongClickListener {
             override fun onItemLongClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long): Boolean {
                 contentResolver.delete(ContactProvider.CONTENT_URI,position.toString(),null)

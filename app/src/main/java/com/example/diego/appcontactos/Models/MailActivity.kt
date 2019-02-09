@@ -8,12 +8,15 @@ import android.os.IBinder
 import android.widget.Toast
 import com.example.diego.appcontactos.R
 import kotlinx.android.synthetic.main.activity_mail.*
-
+/*
+    Activity para enviar un correo electronico al contacto seleccionado en el MainActivity
+ */
 class MailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mail)
+        recipient.setText(intent.getStringExtra("recipientMail"))
         //Si apacha el boton de enviar
         sendButton.setOnClickListener {
             var recipient = recipient.text.toString().trim()//Obtiene el destinatario del Edit Text
